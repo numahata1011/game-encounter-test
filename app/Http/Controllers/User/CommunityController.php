@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Console;
+use App\Genre;
+use App\Community;
 
 class CommunityController extends Controller
 {
@@ -13,43 +16,34 @@ class CommunityController extends Controller
         return view('user.community.community');
     }
 
+    // コンソールページを読み込む
     public function index() {
         // bladeファイルを読み込む
-        return view('user.community.community');
+        $consoles = Console::all();
+        return view('user.community.community', ['consoles' => $consoles]);
     }
 
-    // ジャンルページを読み込む
-    public function comPs() {
-        return view('user.community.community_genre');
+    // ジャンルページページを読み込む
+    public function com(Request $request) {
+        $console = Console::find($request->console_id);
+        $genres = Genre::all();
+        // return view('user.community.community_genre', ['consoles' => $consoles, 'genres' => $genres]);
+        return view('user.community.community_genre', compact('console', 'genres')) ;
     }
 
-    public function comPsv() {
-        return view('user.community.community_genre');
+    // コミュニティ一覧ページを読み込む
+    public function genre(Request $request) {
+        $console = Console::find($request->console_id);
+        $genre = Genre::find($request->genre_id);
+        $communities = Community::where('console_id', $console->id)->where('genre_id', $genre->id)->get();
+        // dd($console->id, $genre->id, $communities->toArray());
+        // return view('user.community.community_genre', ['consoles' => $consoles, 'genres' => $genres]);
+        return view('user.community.community_list', compact('console', 'genre', 'communities'));
     }
 
-    public function comVr() {
-        return view('user.community.community_genre');
-    }
 
-    public function comXbox() {
-        return view('user.community.community_genre');
-    }
 
-    public function comSwitch() {
-        return view('user.community.community_genre');
-    }
 
-    public function comDs() {
-        return view('user.community.community_genre');
-    }
-
-    public function comPc() {
-        return view('user.community.community_genre');
-    }
-
-    public function comOther() {
-        return view('user.community.community_genre');
-    }
 
     // public function comPs() {
     //     return view('user.community.community_ps');

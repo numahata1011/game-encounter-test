@@ -11,6 +11,7 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('admins')->truncate();
         \DB::table('admins')->insert([
         [
             // 'dept_id' => '1',

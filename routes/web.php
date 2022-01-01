@@ -67,15 +67,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function() {
     // コミュニティ
     Route::get('/', 'User\CommunityController@index')->name('community');
-    Route::get('/community/ps', 'User\CommunityController@comPs')->name('ps4/5');
-    Route::get('/community/psv', 'User\CommunityController@comPsv')->name('psv');
-    Route::get('/community/vr', 'User\CommunityController@comVr')->name('vr');
-    Route::get('/community/xbox', 'User\CommunityController@comXbox')->name('xbox');
-    Route::get('/community/switch', 'User\CommunityController@comSwitch')->name('switch');
-    Route::get('/community/3ds', 'User\CommunityController@comDs')->name('3ds');
-    Route::get('/community/pc', 'User\CommunityController@comPc')->name('pc');
-    Route::get('/community/other', 'User\CommunityController@comOther')->name('other');
-    // Route::get('/community/ps/genre', 'User\CommunityController@comPsGenre')->name('ps4/5_genre');
+    Route::get('/community', 'User\CommunityController@com')->name('com');
+
+    // Route::get('/community/ps', 'User\CommunityController@comPs')->name('ps4/5');
+    // Route::get('/community/psv', 'User\CommunityController@comPsv')->name('psv');
+    // Route::get('/community/vr', 'User\CommunityController@comVr')->name('vr');
+    // Route::get('/community/xbox', 'User\CommunityController@comXbox')->name('xbox');
+    // Route::get('/community/switch', 'User\CommunityController@comSwitch')->name('switch');
+    // Route::get('/community/3ds', 'User\CommunityController@comDs')->name('3ds');
+    // Route::get('/community/pc', 'User\CommunityController@comPc')->name('pc');
+    // Route::get('/community/other', 'User\CommunityController@comOther')->name('other');
+
+    Route::get('/community/genre', 'User\CommunityController@genre')->name('genre');
+    Route::get('/community/genre/list', 'User\CommunityController@communitylist')->name('communitylist');
+
     // お知らせ
     Route::get('/notice', 'User\NoticeController@notice')->name('notice');
     Route::get('/notice/nice-partner', 'User\NoticeController@noticeNice')->name('notice/nice-partner');

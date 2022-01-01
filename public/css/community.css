@@ -39,7 +39,10 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+}
 
+.com-btn-4{
+  /* font-size: 15px; */
 }
 
 .com-3 ul li {
@@ -52,6 +55,13 @@
   display: inline-block;
   width: calc(20% - 15px);
   margin: 5px 5px;
+}
+
+.com-5 ul li {
+  display: inline-block;
+  width: calc(25% - 15px);
+  margin: 5px 5px;
+  /* font-size: 5px; */
 }
 
 
@@ -100,4 +110,15 @@
 }
 .btnx-gray-light{
   color: #1D2024 ;background: #B4C1D1; border: 2px solid #B4C1D1;
+}
+
+.btnx-genre1{
+  color: #6E5064 ;background: #B9D0B1; border: 2px solid #B9D0B1;
+}
+.btnx-genre2{
+  color: #6E5064 ;background: #E1C0B6; border: 2px solid #E1C0B6;
+}
+
+.btnx-list1{
+  color: #6E5064 ;background: #DCC8DC; border: 2px solid #DCC8DC;
 }

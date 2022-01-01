@@ -10,11 +10,19 @@
   <div class="com-3">
     <h2 class="com-5">GAME CONSOLE</h2>
     <ul class="com-2">
-      <li>
+      @foreach($consoles as $console)
+        <li>
+          <div class="card btn-light {{ $console->btn_color }} com-btn-1">
+            <h5 class="com-btn-2">{{ $console->name }}</h5>
+            <a class="Link" href="{{ route('com', ['console_id'=>$console->id]) }}"></a>
+          </div>
+        </li>
+      @endforeach
+
+      {{-- <li>
         <div class="card btn-light btnx-indigo-light com-btn-1">
           <h5 class="com-btn-2">PlayStation4/5</h5>
           <a class="Link" href="{{ route('ps4/5') }}"></a>
-          {{-- {{ route('routing名') }} → web.phpの->nameでしていした文字列 --}}
         </div>
       </li>
       <li>
@@ -58,7 +66,7 @@
           <h5 class="com-btn-2">その他</h5>
           <a class="Link" href="{{ route('other') }}"></a>
         </div>
-      </li>
+      </li> --}}
     </ul>
 
 
