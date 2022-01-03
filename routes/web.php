@@ -106,3 +106,19 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function() {
 Route::group(['prefix' => '/admin', 'middleware' => 'auth'], function() {
 
 });
+
+// Route::get('/csv', function () {
+//     // See: PHP: stream_filter_register - Manual https://www.php.net/manual/ja/function.stream-filter-register.php
+//     stream_filter_register('CrlfFilter', CrlfFilter::class);
+
+//     $save_file = '../csv/save.csv';
+//     $file = new \SplFileObject('php://filter/write=CrlfFilter/resource=' . $save_file, 'w');
+//     $file->setCsvControl(",");                   // カンマ区切り
+//     $data = [];
+//     $data[] = ['さとう1', '15', 'male'];
+//     $data[] = ['さとう2', '25', 'male'];
+//     $data[] = ['さとう3', '35', 'female'];
+//     foreach ($data as $row) {
+//         $file->fputcsv($row);
+//     }
+// });

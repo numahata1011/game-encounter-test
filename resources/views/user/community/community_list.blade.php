@@ -10,7 +10,7 @@
     @foreach($communities as $community)
       <li>
         <div class="card btn-light btnx-list1 com-btn-1">
-          <pre class="com-btn-2">{{ $community->name }}</pre>
+          <pre class="com-btn-2 com-btn-4">{!! nl2br(e($community->name)) !!}</pre>
           <a class="Link" href="{{ route('communitylist', ['console_id'=>$console->id, 'genre_id'=>$genre->id, 'community_id'=>$community->id]) }}"></a>
         </div>
       </li>

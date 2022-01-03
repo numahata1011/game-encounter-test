@@ -15,10 +15,10 @@ class CreateCommunitiesTable extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->bigInteger('console_id');
-            $table->bigInteger('genre_id');
-            $table->string('explanation');
+            $table->string('name')->comment('コミュニティ名');
+            $table->bigInteger('console_id')->comment('ゲーム機種');
+            $table->bigInteger('genre_id')->comment('ゲームジャンル');
+            $table->string('explanation')->comment('ゲーム説明');
             $table->string('img_path')->nullable();
             $table->timestamps();
         });
