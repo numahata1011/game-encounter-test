@@ -24,7 +24,7 @@ class CommunityController extends Controller
     }
 
     // ジャンルページページを読み込む
-    public function com(Request $request) {
+    public function communitygenre(Request $request) {
         $console = Console::find($request->console_id);
         $genres = Genre::all();
         // return view('user.community.community_genre', ['consoles' => $consoles, 'genres' => $genres]);
@@ -32,7 +32,7 @@ class CommunityController extends Controller
     }
 
     // コミュニティ一覧ページを読み込む
-    public function genre(Request $request) {
+    public function communitylist(Request $request) {
         $console = Console::find($request->console_id);
         $genre = Genre::find($request->genre_id);
         $communities = Community::where('console_id', $console->id)->where('genre_id', $genre->id)->get();
@@ -41,9 +41,13 @@ class CommunityController extends Controller
         return view('user.community.community_list', compact('console', 'genre', 'communities'));
     }
 
-
-
-
+    // コミュニティ詳細ページを読み込む
+    public function communitydetail(Request $request) {
+        $console = Console::find($request->console_id);
+        $genre = Genre::find($request->genre_id);
+        $community = Community::find($request->community_id);
+        return view('user.community.community_detail', compact('console', 'genre', 'community'));
+    }
 
     // public function comPs() {
     //     return view('user.community.community_ps');

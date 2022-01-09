@@ -67,7 +67,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function() {
     // コミュニティ
     Route::get('/', 'User\CommunityController@index')->name('community');
-    Route::get('/community', 'User\CommunityController@com')->name('com');
+    Route::get('/community/genre', 'User\CommunityController@communitygenre')->name('communitygenre');
+    Route::get('/community/genre/list', 'User\CommunityController@communitylist')->name('communitylist');
+    Route::get('/community/genre/list/detail', 'User\CommunityController@communitydetail')->name('communitydetail');
 
     // Route::get('/community/ps', 'User\CommunityController@comPs')->name('ps4/5');
     // Route::get('/community/psv', 'User\CommunityController@comPsv')->name('psv');
@@ -78,24 +80,25 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function() {
     // Route::get('/community/pc', 'User\CommunityController@comPc')->name('pc');
     // Route::get('/community/other', 'User\CommunityController@comOther')->name('other');
 
-    Route::get('/community/genre', 'User\CommunityController@genre')->name('genre');
-    Route::get('/community/genre/list', 'User\CommunityController@communitylist')->name('communitylist');
-
     // お知らせ
     Route::get('/notice', 'User\NoticeController@notice')->name('notice');
     Route::get('/notice/nice-partner', 'User\NoticeController@noticeNice')->name('notice/nice-partner');
     Route::get('/notice/chat', 'User\NoticeController@noticeChat')->name('notice/chat');
+
     // いいね
     Route::get('/nice/from-partner', 'User\NiceController@nicePartner')->name('nice/from-partner');
     Route::get('/nice/from-me', 'User\NiceController@niceMe')->name('nice/from-me');
     // チャット
     Route::get('/chat', 'User\ChatController@chat')->name('chat');
+
     // プロフィール
     Route::get('/profile', 'User\ProfileController@index')->name('profile');
-    Route::get('/profile/create', 'User\ProfileController@create')->name('profile/add');
+
+    Route::get('/profile/create', 'User\ProfileController@add')->name('profile/add');
     Route::post('/profile/create', 'User\ProfileController@create')->name('profile/create');
+
     Route::get('/profile/edit', 'User\ProfileController@edit')->name('profile/edit');
-    Route::get('/profile/edit', 'User\ProfileController@edit')->name('profile/edit');
+    Route::post('/profile/edit', 'User\ProfileController@edit')->name('profile/edit');
     // ステータス
     Route::get('/status', 'User\StatusController@status')->name('status');
     // お問い合わせ

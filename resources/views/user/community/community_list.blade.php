@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- {{ route('#') }} --}}
 
 <div class="com-1">
   <div class="com-3 com-5">
@@ -11,11 +10,10 @@
       <li>
         <div class="card btn-light btnx-list1 com-btn-1">
           <pre class="com-btn-2 com-btn-4">{!! nl2br(e($community->name)) !!}</pre>
-          <a class="Link" href="{{ route('communitylist', ['console_id'=>$console->id, 'genre_id'=>$genre->id, 'community_id'=>$community->id]) }}"></a>
+          <a class="Link" href="{{ route('communitydetail', ['console_id'=>$console->id, 'genre_id'=>$genre->id, 'community_id'=>$community->id]) }}"></a>
         </div>
       </li>
     @endforeach
-
     </ul>
   </div>
 </div>

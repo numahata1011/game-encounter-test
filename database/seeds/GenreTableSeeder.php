@@ -23,6 +23,7 @@ class GenreTableSeeder extends Seeder
                 'name' => 'アドベンチャー',
                 'btn_color' => 'btnx-genre2',
             ],
+
             [
                 'name' => 'シューティング',
                 'btn_color' => 'btnx-genre1',
@@ -64,7 +65,7 @@ class GenreTableSeeder extends Seeder
                 'btn_color' => 'btnx-genre2',
             ],
             [
-                'name' => 'コミュニティ',
+                'name' => 'コミュニケーション',
                 'btn_color' => 'btnx-genre1',
             ],
             [
@@ -76,8 +77,12 @@ class GenreTableSeeder extends Seeder
                 'btn_color' => 'btnx-genre1',
             ],
             [
-                'name' => 'ツール',
+                'name' => "乙女ゲーム",
                 'btn_color' => 'btnx-genre2',
+            ],
+            [
+                'name' => 'ツール',
+                'btn_color' => 'btnx-genre1',
             ],
         ];
         DB::table('genres')->insert($genres);

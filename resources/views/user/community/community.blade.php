@@ -14,7 +14,7 @@
         <li>
           <div class="card btn-light {{ $console->btn_color }} com-btn-1">
             <h5 class="com-btn-2">{{ $console->name }}</h5>
-            <a class="Link" href="{{ route('com', ['console_id'=>$console->id]) }}"></a>
+            <a class="Link" href="{{ route('communitygenre', ['console_id'=>$console->id]) }}"></a>
           </div>
         </li>
       @endforeach
