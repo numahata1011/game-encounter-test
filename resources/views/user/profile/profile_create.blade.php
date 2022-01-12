@@ -17,8 +17,8 @@
 
         <div class="form-group row">
           <div class="mb-3">
-            <label for="formFile" class="form-label">画像</label>
-            <input class="form-control" type="file" id="formFile">
+            {{-- <label for="formFile" class="form-label">画像</label>
+            <input class="form-control" type="file" id="formFile"> --}}
 
             <div class="col-md-10">
               <input type="file" class="form-control-file" name="image">
@@ -56,7 +56,7 @@
         <div class="form-group row">
           <div class="mb-3">
             <label for="residence" class="form-label">居住地</label><br>
-            <select class="form-select prof-1 prof-2" aria-label="Default select example">
+            <select class="form-select prof-1 prof-2" aria-label="Default select example" name="residence" value="{{ old('residence') }}">
               <option selected>--選択してください--</option>
               <option value="1">北海道</option>
               <option value="2">青森県</option>
@@ -201,132 +201,40 @@
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">所持ゲーム</label><br>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console01">
-              <label class="form-check-label" for="console01">PlayStation4 / 5</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console02">
-              <label class="form-check-label" for="console02">PlayStationVita</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console03">
-              <label class="form-check-label" for="console03">PlayStation VR / Oculus Quest</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console04">
-              <label class="form-check-label" for="console04">Xbox Series S</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console05">
-              <label class="form-check-label" for="console05">Nintendo Switch</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console06">
-              <label class="form-check-label" for="console06">NINTENDO 3DS</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console07">
-              <label class="form-check-label" for="console07">PC</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="console[]" value="" id="console08">
-              <label class="form-check-label" for="console08">その他</label>
-            </div>
-            @if ($errors->has('checkbox'))
-              <span class="error">{{$errors->first('checkbox')}}</span>
-            @endif
+            @foreach($consoles as $console)
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="consoles[]" value="{{ $console->id }}">
+                <label class="form-check-label" for="console01">{{ $console->name }}</label>
+              </div>
+            @endforeach
           </div>
         </div>
+
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">興味のあるジャンル</label><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre01">
-              <label class="form-check-label" for="genre01">アクション</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre02">
-              <label class="form-check-label" for="genre02">アドベンチャー</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre03">
-              <label class="form-check-label" for="genre03">シューティング</label>
-            </div><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre04">
-              <label class="form-check-label" for="genre04">PRG</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre05">
-              <label class="form-check-label" for="genre05">シュミレーション</label>
-            </div><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre06">
-              <label class="form-check-label" for="genre06">スポーツ</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre07">
-              <label class="form-check-label" for="genre07">格闘</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre08">
-              <label class="form-check-label" for="genre08">レース</label>
-            </div><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre09">
-              <label class="form-check-label" for="genre09">音楽ゲーム</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre10">
-              <label class="form-check-label" for="genre10">パズル</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre11">
-              <label class="form-check-label" for="genre12">テープルゲーム</label>
-            </div><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre12">
-              <label class="form-check-label" for="genre12">パーティ</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre13">
-              <label class="form-check-label" for="genre13">コミュニケーション</label>
-            </div><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre14">
-              <label class="form-check-label" for="genre14">学習・教育</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre15">
-              <label class="form-check-label" for="genre15">トレーニング</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre16">
-              <label class="form-check-label" for="genre16">乙女ゲーム</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="genre[]" value="" id="genre17">
-              <label class="form-check-label" for="genre17">ツール</label>
-            </div>
-            @if ($errors->has('checkbox'))
-              <span class="error">{{$errors->first('checkbox')}}</span>
-            @endif
+            @foreach($genres as $genre)
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre->id }}">
+                <label class="form-check-label" for="genre01">{{ $genre->name }}</label>
+              </div>
+            @endforeach
           </div>
         </div>
+
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">ゲームの頻度</label><br>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency[]" "気合いの毎日"{{ is_array(old("checkbox")) && in_array("気合いの毎日", old("checkbox"), true)? ' checked' : '' }} id="frequency01">
+              <input class="form-check-input" type="radio" name="frequency[]" value="気合いの毎日"{{ is_array(old("checkbox")) && in_array("気合いの毎日", old("checkbox"), true)? ' checked' : '' }} id="frequency01">
               <label class="form-check-label" for="frequency01">気合いの毎日</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency[]" "休日にがっつり"{{ is_array(old("checkbox")) && in_array("休日にがっつり", old("checkbox"), true)? ' checked' : '' }} id="frequency02">
+              <input class="form-check-input" type="radio" name="frequency[]" value="休日にがっつり"{{ is_array(old("checkbox")) && in_array("休日にがっつり", old("checkbox"), true)? ' checked' : '' }} id="frequency02">
               <label class="form-check-label" for="frequency02">休日にがっつり</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency[]" "マイペースに週1~2"{{ is_array(old("checkbox")) && in_array("マイペースに週1~2", old("checkbox"), true)? ' checked' : '' }} id="frequency03">
+              <input class="form-check-input" type="radio" name="frequency[]" value="マイペースに週1~2"{{ is_array(old("checkbox")) && in_array("マイペースに週1~2", old("checkbox"), true)? ' checked' : '' }} id="frequency03">
               <label class="form-check-label" for="frequency03">マイペースに週1~2</label>
             </div>
             @if ($errors->has('checkbox'))
@@ -336,20 +244,20 @@
         </div>
         <div class="form-group row">
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">PSPIN/フレンドコードetc...</label><br>
-            <input type="email" class="form-control prof-1 prof-2" id="exampleFormControlInput1" placeholder="PSPIN">
-            <input type="email" class="form-control prof-1 prof-2" id="exampleFormControlInput1" placeholder="フレンドコード">
+            <label for="game_code" class="form-label">PSPIN/フレンドコードetc...</label><br>
+            <input type="text" class="form-control prof-1 prof-2" name="game_code01" value="{{ old('game_code01') }}" placeholder="PSPIN" >
+            <input type="text" class="form-control prof-1 prof-2" name="game_code02" value="{{ old('game_code02') }}" placeholder="フレンドコード">
           </div>
         </div>
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">チャット機能</label><br>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="chat_flag[]" id="chat_flag01" checked>
+              <input class="form-check-input" type="radio" name="chat_flag" value="true" id="chat_flag01" checked>
               <label class="form-check-label" for="chat_flag02">ON</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="chat_flag[]" id="chat_flag02">
+              <input class="form-check-input" type="radio" name="chat_flag" value="false" id="chat_flag02">
               <label class="form-check-label" for="chat_flag02">OFF</label>
             </div>
             @if ($errors->has('checkbox'))
@@ -358,10 +266,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <div class="mb-3">
-            <label for="introduction" class="form-label">自己紹介</label>
-            <textarea class="form-control" id="introduction" rows="5"></textarea>
-          </div>
+          <label for="introduction" class="form-label">自己紹介</label>
+          <textarea class="form-control" name="introduction" value="{{ old('introduction') }}" rows="5"></textarea>
         </div>
         {{ csrf_field() }}
         <a href="{{ route('profile') }}"><input type="submit" class="btn btn-primary" value="保存"></a>

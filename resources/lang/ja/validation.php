@@ -145,8 +145,11 @@ return [
     */
 
     'attributes' => [
-        'title' => 'タイトル',
-        'body' => '本文'
+        'name' => '名前',
+        'holiday' => '休日',
+        'console' => '所持ゲーム',
+        'genres' => '興味のあるジャンル',
+        'frequency' => '頻度',
     ],
 
 ];
