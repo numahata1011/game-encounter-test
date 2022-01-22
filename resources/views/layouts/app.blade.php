@@ -12,6 +12,30 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/profile.js') }}" defer></script>
+    <script src="{{ asset('js/sb-anime.js') }}" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+    // MenuToggle
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+
+    toggle.onclick = function(){
+      navigation.classList.toggle('active');
+      main.classList.toggle('active');
+    }
+
+    // add hovered class in selected list item
+    let list = document.querySelectorAll('.navigation li');
+    function activeLink(){
+      list.forEach((item) =>
+      item.classList.remove('hovered'));
+      this.classList.add('hovered');
+    }
+    list.forEach((item) =>
+    item.addEventListener('mouseover',activeLink));
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +43,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
     <link href="{{ asset('css/community.css') }}" rel="stylesheet">
     <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact.css') }}" rel="stylesheet">
@@ -86,8 +111,8 @@
 
         <main class="">
             <div class="row">
-                <div class="col-sm-12 col-md-2 p-0"> {{-- p-0→paddingを0にする --}}
-                    <div class="card">
+                <div class="col-sm-12 col-md-3 p-0"> {{-- p-0→paddingを0にする --}}
+                    {{-- <div class="card">
                         <div class="card-header">メニュー</div>
                         <ul class="list-group list-group-flush">
                             <a href={{ route('community') }} class="list-group-item"><i class="fas fa-gamepad"></i>コミュニティ</a>
@@ -98,9 +123,59 @@
                             <a href={{ route('status') }} class="list-group-item"><i class="fas fa-user-circle"></i>会員ステータス</a>
                             <a href={{ route('contact') }} class="list-group-item"><i class="fas fa-file-contract"></i>お問い合わせ</a>
                         </ul>
+                    </div> --}}
+
+                    <div class="container">
+                        <div class="navigation">
+                        <ul>
+                            <li>
+                                <a href={{ route('community') }}>
+                                    <span class="icon"><ion-icon name="game-controller-outline"></ion-icon></span>
+                                    <span class="title">コミュニティ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={{ route('notice') }}>
+                                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                                    <span class="title">お知らせ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={{ route('notice') }}>
+                                    <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                                    <span class="title">いいね</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={{ route('chat') }}>
+                                    <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span>
+                                    <span class="title">チャット</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={{ route('profile') }}>
+                                    <span class="icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+                                    <span class="title">プロフィール</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={{ route('status') }}>
+                                    <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                                    <span class="title">会員ステータス</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href={{ route('contact') }}>
+                                    <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                                    <span class="title">お問い合わせ</span>
+                                </a>
+                            </li>
+                        </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-10 p-0">
+
+                <div class="col-sm-12 col-md-9 p-0">
                     @yield('content')
                 </div>
             </div>
