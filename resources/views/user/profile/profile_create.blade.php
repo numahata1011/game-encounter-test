@@ -181,19 +181,22 @@
           <div class="mb-3">
             <label class="form-label">休日</label><br>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="holiday[]" value="平日"{{ is_array(old("checkbox")) && in_array("平日", old("checkbox"), true)? ' checked' : '' }} id="holiday01">
+              <input class="form-check-input" type="checkbox" name="holiday[]" value="1"
+              {{ is_array(old("holiday")) && in_array("1", old("holiday"), true)? ' checked' : '' }} id="holiday01">
               <label class="form-check-label" for="holiday01">平日</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="holiday[]" value="土日"{{ is_array(old("checkbox")) && in_array("土日", old("checkbox"), true)? ' checked' : '' }} id="holiday02">
+              <input class="form-check-input" type="checkbox" name="holiday[]" value="2"
+              {{ is_array(old("holiday")) && in_array("2", old("holiday"), true)? ' checked' : '' }} id="holiday02">
               <label class="form-check-label" for="holiday02">土日</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="holiday[]" value="祝日"{{ is_array(old("checkbox")) && in_array("祝日", old("checkbox"), true)? ' checked' : '' }} id="holiday03">
+              <input class="form-check-input" type="checkbox" name="holiday[]" value="3"
+              {{ is_array(old("holiday")) && in_array("3", old("holiday"), true)? ' checked' : '' }} id="holiday03">
               <label class="form-check-label" for="holiday03">祝日</label>
             </div>
-            @if ($errors->has('checkbox'))
-              <span class="error">{{$errors->first('checkbox')}}</span>
+            @if ($errors->has('holiday'))
+              <span class="error">{{$errors->first('holiday')}}</span>
             @endif
           </div>
         </div>
@@ -203,7 +206,8 @@
             <label class="form-label">所持ゲーム</label><br>
             @foreach($consoles as $console)
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="consoles[]" value="{{ $console->id }}">
+                <input class="form-check-input" type="checkbox" name="consoles[]" value="{{ $console->id }}"
+                {{ is_array(old("consoles")) && in_array($console->id, old("consoles"), true)? ' checked' : '' }} >
                 <label class="form-check-label" for="console01">{{ $console->name }}</label>
               </div>
             @endforeach
@@ -215,7 +219,8 @@
             <label class="form-label">興味のあるジャンル</label><br>
             @foreach($genres as $genre)
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre->id }}">
+                <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                {{ is_array(old("genres")) && in_array($genre->id, old("genres"), true)? ' checked' : '' }} >
                 <label class="form-check-label" for="genre01">{{ $genre->name }}</label>
               </div>
             @endforeach
@@ -226,15 +231,18 @@
           <div class="mb-3">
             <label class="form-label">ゲームの頻度</label><br>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency[]" value="気合いの毎日"{{ is_array(old("checkbox")) && in_array("気合いの毎日", old("checkbox"), true)? ' checked' : '' }} id="frequency01">
+              <input class="form-check-input" type="radio" name="frequency" value="1"
+              @if( old('frequency') == "1") checked @endif>
               <label class="form-check-label" for="frequency01">気合いの毎日</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency[]" value="休日にがっつり"{{ is_array(old("checkbox")) && in_array("休日にがっつり", old("checkbox"), true)? ' checked' : '' }} id="frequency02">
+              <input class="form-check-input" type="radio" name="frequency" value="2"
+              @if( old('frequency') == "2") checked @endif >
               <label class="form-check-label" for="frequency02">休日にがっつり</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency[]" value="マイペースに週1~2"{{ is_array(old("checkbox")) && in_array("マイペースに週1~2", old("checkbox"), true)? ' checked' : '' }} id="frequency03">
+              <input class="form-check-input" type="radio" name="frequency" value="3"
+              @if( old('frequency') == "3") checked @endif >
               <label class="form-check-label" for="frequency03">マイペースに週1~2</label>
             </div>
             @if ($errors->has('checkbox'))

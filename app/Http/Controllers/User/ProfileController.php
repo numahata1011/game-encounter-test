@@ -44,37 +44,87 @@ class ProfileController extends Controller
         unset($form['image']);
 
         // 休日を保存
-        $holidays=$form['holiday'];
-        $holiday_str='';
-        foreach ($holidays as $value) {
-            # code...
-            $holiday_str.= $value . ',';
+        $holiday_str = '';
+        if ( isset($form['holiday']) ) {
+            $holidays = $form['holiday'];
+            // $holiday_str='';
+            foreach ($holidays as $value) {
+                # code...
+                $holiday_str .= $value . ',';
+            }
+            unset($form['holiday']);
+        } else {
+            $profile->holiday  = null;
         }
+
+
+        // $holidays=$form['holiday'];
+        // $holiday_str='';
+        // foreach ($holidays as $value) {
+        //     # code...
+        //     $holiday_str.= $value . ',';
+        // }
 
         // ゲーム機種を保存
-        $consoles=$form['consoles'];
-        $console_str='';
-        foreach ($consoles as $value) {
-            # code...
-            $console_str.= $value . ',';
+        $console_str = '';
+        if ( isset($form['consoles']) ) {
+            $consoles=$form['consoles'];
+            // $console_str='';
+            foreach ($consoles as $value) {
+                # code...
+                $console_str.= $value . ',';
+            }
+            unset($form['consoles']);
+        } else {
+            $profile->console = null;
         }
 
+        // $consoles=$form['consoles'];
+        // $console_str='';
+        // foreach ($consoles as $value) {
+        //     # code...
+        //     $console_str.= $value . ',';
+        // }
+
         // ゲームジャンルを保存
-        $genres=$form['genres'];
-        $genre_str='';
-        foreach ($genres as $value) {
-            # code...
-            $genre_str.= $value . ',';
+        $genre_str = '';
+        if ( isset($form['genres']) ) {
+            $genres=$form['genres'];
+            // $genre_str='';
+            foreach ($genres as $value) {
+                # code...
+                $genre_str.= $value . ',';
+            }
+            unset($form['genres']);
+        } else {
+            $profile->genre = null;
         }
+
+        // $genres=$form['genres'];
+        // $genre_str='';
+        // foreach ($genres as $value) {
+        //     # code...
+        //     $genre_str.= $value . ',';
+        // }
+
+        // // 頻度を保存
+        // $frequencys=$form['frequency'];
+        // $frequency_str='';
+        // foreach ($frequencys as $value) {
+        //     # code...
+        //     $frequency_str.= $value . ',';
+        // }
+
         // dd($str);
 
         // データベースに保存する
         $profile->fill($form);
-        $profile->holiday=$holiday_str;
-        $profile->console=$console_str;
-        $profile->genre=$genre_str;
+        $profile->holiday_ids = $holiday_str;
+        $profile->console_ids = $console_str;
+        $profile->genre_ids = $genre_str;
         // dd($profile);
         $profile->save();
+        // dd($profile->toArray());
 
         // profile/createにリダイレクト
         return redirect('profile/create');

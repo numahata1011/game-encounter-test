@@ -22,8 +22,8 @@ class CreateProfilesTable extends Migration
             $table->string('birth01')->nullable(); //誕生年を保存するカラム
             $table->string('birth02')->nullable(); //誕生月を保存するカラム
             $table->string('birth03')->nullable(); //誕生日を保存するカラム
-            $table->string('holiday')->nullable(); //休日を保存するカラム
-            $table->string('frequency')->nullable(); //頻度を保存するカラム
+            $table->string('holiday_ids')->nullable(); //休日を保存するカラム
+            $table->integer('frequency')->nullable(); //頻度を保存するカラム
             $table->string('console_ids')->nullable();
             $table->string('genre_ids')->nullable();
             $table->string('game_code01')->nullable(); //各GAMEIDを保存するカラム
