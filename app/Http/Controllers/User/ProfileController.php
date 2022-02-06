@@ -10,6 +10,7 @@ use App\Console;
 use App\Genre;
 use App\Holiday;
 use App\Frequency;
+use App\Residence;
 use App\ProfileHistory;
 use Carbon\Carbon;
 
@@ -18,9 +19,12 @@ class ProfileController extends Controller
     //
 
     public function add() {
+        $residences=Residence::all();
+        $holidays=Holiday::all();
+        $frequencies=Frequency::all();
         $consoles=Console::all();
         $genres=Genre::all();
-        return view('user.profile.profile_create', compact('consoles', 'genres'));
+        return view('user.profile.profile_create', compact('residences', 'holidays', 'frequencies', 'consoles', 'genres'));
     }
 
     public function create(Request $request) {
@@ -105,13 +109,17 @@ class ProfileController extends Controller
 
     public function edit(Request $request) {
 
-        // Modelからデータを取得する
-        $profiles = Profile::find($request->id);
-        if (empty($profiles)) {
-            abort(404);
-        }
+        // // Modelからデータを取得する
+        // $profiles = Profile::find($request->id);
+        // if (empty($profiles)) {
+        //     abort(404);
+        // }
 
-        return view('user.profile.profile_edit', ['profile_form => $profile']);
+        $profile = Auth::user()->profile;
+
+        return view('user.profile.profile_edit', compact('profile'));
+
+        // return view('user.profile.profile_edit', ['profile_form => $profile']);
     }
 
     public function update(Request $request) {
@@ -121,6 +129,17 @@ class ProfileController extends Controller
         $profile = Profile::find($request->id);
 
         $profile_form = $request->all();
+        if ($request->remove == 'true') {
+            $profile_form['image_path'] = null;
+        } elseif ($request->file('image')) {
+            $path = $request->file('image')->store('public/image');
+            $profile_form['image_path'] = basename($path);
+        } else {
+            $profile_form['image_path'] = $profile->image_path;
+        }
+
+        unset($profile_form['image']);
+        unset($profile_form['remove']);
         unset($profile_form['_token']);
 
         $profile->fill($profile_form)->save();
@@ -130,7 +149,7 @@ class ProfileController extends Controller
         $profile_history->edited_at = Carbon::now();
         $profile_history->save();
 
-        return redirect('user/profile');
+        return redirect('profile');
     }
 
     public function index(Request $request) {

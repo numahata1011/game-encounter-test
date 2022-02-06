@@ -98,7 +98,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function() {
     Route::post('/profile/create', 'User\ProfileController@create')->name('profile/create');
 
     Route::get('/profile/edit', 'User\ProfileController@edit')->name('profile/edit');
-    Route::post('/profile/edit', 'User\ProfileController@edit')->name('profile/edit');
+    Route::post('/profile/edit', 'User\ProfileController@update')->name('profile/update');
     // ステータス
     Route::get('/status', 'User\StatusController@status')->name('status');
     // お問い合わせ

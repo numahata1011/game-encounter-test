@@ -10,6 +10,7 @@
       <div>
         <a class="btn btn-primary" href="{{ route('profile/create') }}" role="button">新規登録</a>
         <a class="btn btn-primary" href="{{ route('profile/edit') }}" role="button">編集</a>
+        <a class="btn btn-primary" href="{{ action('User\ProfileController@edit') }}">編集</a>
       </div>
       <br>
 
