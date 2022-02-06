@@ -15,17 +15,18 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id');
             $table->string('name'); //ニックネームを保存するカラム
-            $table->string('residence')->nullable(); //居住地を保存するカラム
-            $table->string('birthplace')->nullable(); //出身地を保存するカラム
+            $table->integer('residence_id')->nullable(); //居住地を保存するカラム
+            $table->integer('birthplace_id')->nullable(); //出身地を保存するカラム
             // $table->string('birthday')->nullable(); //誕生日を保存するカラム
             $table->string('birth01')->nullable(); //誕生年を保存するカラム
             $table->string('birth02')->nullable(); //誕生月を保存するカラム
             $table->string('birth03')->nullable(); //誕生日を保存するカラム
-            $table->string('holiday_ids')->nullable(); //休日を保存するカラム
-            $table->integer('frequency')->nullable(); //頻度を保存するカラム
-            $table->string('console_ids')->nullable();
-            $table->string('genre_ids')->nullable();
+            $table->integer('holiday_id')->nullable(); //休日を保存するカラム
+            $table->integer('frequency_id')->nullable(); //頻度を保存するカラム
+            $table->integer('console_id')->nullable();
+            $table->integer('genre_id')->nullable();
             $table->string('game_code01')->nullable(); //各GAMEIDを保存するカラム
             $table->string('game_code02')->nullable(); //各GAMEIDを保存するカラム
             $table->string('chat_flag'); //チャットon,offを保存するカラム

@@ -56,7 +56,7 @@
         <div class="form-group row">
           <div class="mb-3">
             <label for="residence" class="form-label">居住地</label><br>
-            <select class="form-select prof-1 prof-2" aria-label="Default select example" name="residence" value="{{ old('residence') }}">
+            <select class="form-select prof-1 prof-2" aria-label="Default select example" name="residence_id" value="{{ old('residence_id') }}">
               <option selected>--選択してください--</option>
               <option value="1">北海道</option>
               <option value="2">青森県</option>
@@ -201,6 +201,31 @@
           </div>
         </div>
 
+
+        <div class="form-group row">
+          <div class="mb-3">
+            <label class="form-label">ゲームの頻度</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="frequency_id" value="1"
+              @if( old('frequency') == "1") checked @endif>
+              <label class="form-check-label" for="frequency01">気合いの毎日</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="frequency_id" value="2"
+              @if( old('frequency') == "2") checked @endif >
+              <label class="form-check-label" for="frequency02">休日にがっつり</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="frequency_id" value="3"
+              @if( old('frequency') == "3") checked @endif >
+              <label class="form-check-label" for="frequency03">マイペースに週1~2</label>
+            </div>
+            @if ($errors->has('checkbox'))
+              <span class="error">{{$errors->first('checkbox')}}</span>
+            @endif
+          </div>
+        </div>
+
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">所持ゲーム</label><br>
@@ -227,29 +252,7 @@
           </div>
         </div>
 
-        <div class="form-group row">
-          <div class="mb-3">
-            <label class="form-label">ゲームの頻度</label><br>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency" value="1"
-              @if( old('frequency') == "1") checked @endif>
-              <label class="form-check-label" for="frequency01">気合いの毎日</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency" value="2"
-              @if( old('frequency') == "2") checked @endif >
-              <label class="form-check-label" for="frequency02">休日にがっつり</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="frequency" value="3"
-              @if( old('frequency') == "3") checked @endif >
-              <label class="form-check-label" for="frequency03">マイペースに週1~2</label>
-            </div>
-            @if ($errors->has('checkbox'))
-              <span class="error">{{$errors->first('checkbox')}}</span>
-            @endif
-          </div>
-        </div>
+
         <div class="form-group row">
           <div class="mb-3">
             <label for="game_code" class="form-label">PSPIN/フレンドコードetc...</label><br>
@@ -262,7 +265,7 @@
             <label class="form-label">チャット機能</label><br>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="chat_flag" value="true" id="chat_flag01" checked>
-              <label class="form-check-label" for="chat_flag02">ON</label>
+              <label class="form-check-label" for="chat_flag01">ON</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="chat_flag" value="false" id="chat_flag02">

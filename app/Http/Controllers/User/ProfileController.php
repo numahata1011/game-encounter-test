@@ -4,18 +4,18 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 use App\Profile;
 use App\Console;
 use App\Genre;
+use App\Holiday;
+use App\Frequency;
+use App\ProfileHistory;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
     //
-
-
-    public function index() {
-        return view('user.profile.profile');
-    }
 
     public function add() {
         $consoles=Console::all();
@@ -57,14 +57,6 @@ class ProfileController extends Controller
             $profile->holiday  = null;
         }
 
-
-        // $holidays=$form['holiday'];
-        // $holiday_str='';
-        // foreach ($holidays as $value) {
-        //     # code...
-        //     $holiday_str.= $value . ',';
-        // }
-
         // ゲーム機種を保存
         $console_str = '';
         if ( isset($form['consoles']) ) {
@@ -78,13 +70,6 @@ class ProfileController extends Controller
         } else {
             $profile->console = null;
         }
-
-        // $consoles=$form['consoles'];
-        // $console_str='';
-        // foreach ($consoles as $value) {
-        //     # code...
-        //     $console_str.= $value . ',';
-        // }
 
         // ゲームジャンルを保存
         $genre_str = '';
@@ -100,38 +85,78 @@ class ProfileController extends Controller
             $profile->genre = null;
         }
 
-        // $genres=$form['genres'];
-        // $genre_str='';
-        // foreach ($genres as $value) {
-        //     # code...
-        //     $genre_str.= $value . ',';
-        // }
 
-        // // 頻度を保存
-        // $frequencys=$form['frequency'];
-        // $frequency_str='';
-        // foreach ($frequencys as $value) {
-        //     # code...
-        //     $frequency_str.= $value . ',';
-        // }
-
-        // dd($str);
+        // dd($form);
 
         // データベースに保存する
         $profile->fill($form);
-        $profile->holiday_ids = $holiday_str;
-        $profile->console_ids = $console_str;
-        $profile->genre_ids = $genre_str;
-        // dd($profile);
+        // dd($profile->toArray());
+        $profile->user_id = Auth::id();
+        $profile->holiday_id = $holiday_str;
+        $profile->console_id = $console_str;
+        $profile->genre_id = $genre_str;
+        // dd($profile->toArray());
+
         $profile->save();
         // dd($profile->toArray());
 
-        // profile/createにリダイレクト
-        return redirect('profile/create');
+        return redirect('profile');
     }
 
-    public function edit() {
-        return view('user.profile.profile_edit');
+    public function edit(Request $request) {
+
+        // Modelからデータを取得する
+        $profiles = Profile::find($request->id);
+        if (empty($profiles)) {
+            abort(404);
+        }
+
+        return view('user.profile.profile_edit', ['profile_form => $profile']);
+    }
+
+    public function update(Request $request) {
+
+        $this->validate($request, Profile::$rules);
+
+        $profile = Profile::find($request->id);
+
+        $profile_form = $request->all();
+        unset($profile_form['_token']);
+
+        $profile->fill($profile_form)->save();
+
+        $profile_history = new ProfileHistory();
+        $profile_history->profile_id = $profile->id;
+        $profile_history->edited_at = Carbon::now();
+        $profile_history->save();
+
+        return redirect('user/profile');
+    }
+
+    public function index(Request $request) {
+
+        $profiles = Profile::all();
+        // $profiles = Profile::where()->get();
+
+        // if(isset($_POST['holiday_ids']) && is_array($_POST['holiday_ids'])) {
+        //     $holiday_ids = array(
+        //         1=>'平日',
+        //         2=>'土日',
+        //         3=>'祝日',
+        //     );
+        //     $holiday_ids = implode(',', $_POST['holiday_ids']);
+
+        // }
+
+
+
+        // $frequency = array(
+        //     1=>'気合いの毎日',
+        //     2=>'休日にがっつり',
+        //     3=>'マイペースに週1~2',
+        // );
+
+        return view('user.profile.profile', compact('profiles'));
     }
 
 }

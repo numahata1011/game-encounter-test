@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ConsoleTableSeeder::class);
         $this->call(GenreTableSeeder::class);
         $this->call(CommunitylistTableSeeder::class);
+        $this->call(HolidayTableSeeder::class);
+        $this->call(FrequencyTableSeeder::class);
     }
 }
