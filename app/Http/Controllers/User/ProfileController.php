@@ -205,13 +205,14 @@ class ProfileController extends Controller
 
     private function getParam(&$form, $paramName) {
         $str = '';
+        // isset→変数が定義されていて、変数がnullかどうか判定
         if ( isset($form[$paramName]) ) {
             $params = $form[$paramName];
-            // $holiday_str='';
+            // foreach(配列名 as 未定義要素)→$paramsのデータの後に「,」を追加し、配列にする
             foreach ($params as $value) {
-                # code...
                 $str .= $value . ',';
             }
+            // unset→要素を削除
             unset($form[$paramName]);
             return $str;
         } else {
