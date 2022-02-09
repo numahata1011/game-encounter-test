@@ -20,7 +20,7 @@ Auth::routes();
 // ログイン無効
 // Auth::routes([‘register’ => false]);
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin'], function() {
 */
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::post('logout', 'Admin\LoginController@adminLogout')->name('admin.logout');
-    Route::get('home', 'Admin\HomeController@index')->name('admin.home');
+    Route::get('/', 'Admin\HomeController@index')->name('admin.home');
     Route::get('/', function () { return redirect('/admin/home'); });
 
 });

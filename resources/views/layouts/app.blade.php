@@ -135,6 +135,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href={{ route('community') }}>
+                                    <span class="icon"><ion-icon name="game-controller-outline"></ion-icon></span>
+                                    <span class="title">コミュニティ</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href={{ route('notice') }}>
                                     <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                                     <span class="title">お知らせ</span>

@@ -23,15 +23,17 @@
 
         <div class="form-group row">
           <div class="mb-3">
-            <label for="name" class="form-label">ニックネーム</label><br>
-              <th>{{ Auth::user()->profile->name }}</th>
+            <label class="form-label">ニックネーム</label><br>
+              {{-- <th>{{ Auth::user()->profile->name }}</th> --}}
+              <th>{{ Auth::user()->profile ? Auth::user()->profile->name : '-' }}</th>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="mb-3">
-            <label for="residence" class="form-label">居住地</label><br>
-              {{-- <th>{{ $profile->residence }}</th> --}}
+            <label class="form-label">居住地</label><br>
+              {{-- <th>{{ Auth::user()->profile->residence->name }}</th> --}}
+              <th>{{ Auth::user()->profile ? Auth::user()->profile->residence->name : '-' }}</th>
           </div>
         </div>
 
@@ -66,13 +68,15 @@
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">所持ゲーム</label><br>
-              <th>{{ Auth::user()->profile->consolestr() }}</th>
+            <th>{!! Auth::user()->profile ? nl2br(htmlspecialchars(Auth::user()->profile->consolestr())) : '-' !!}</th>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">興味のあるジャンル</label><br>
+            {{-- <th>{{ Auth::user()->profile->genrestr() }}</th> --}}
+            <th>{!! Auth::user()->profile ? nl2br(htmlspecialchars(Auth::user()->profile->genrestr())) : '-' !!}</th>
             {{-- @foreach($profiles as $profile)
               <th>{{ $profile->genre->name}}</th>
             @endforeach --}}
@@ -93,8 +97,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="introduction" class="form-label">自己紹介</label>
-              {{-- <th>{{ $profile->introduction }}</th> --}}
+          <label class="form-label">自己紹介</label><br>
+              {{-- <th>{{ Auth::user()->$profile->introduction }}</th> --}}
+              <th>{{ Auth::user()->profile ? Auth::user()->profile->introduction : '-' }}</th>
         </div>
         {{ csrf_field() }}
         <a href="{{ route('profile') }}"><input type="submit" class="btn btn-primary" value="保存"></a>

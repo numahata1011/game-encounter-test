@@ -115,9 +115,23 @@ class ProfileController extends Controller
         //     abort(404);
         // }
 
+        // プロフィールデータ取得
         $profile = Auth::user()->profile;
 
-        return view('user.profile.profile_edit', compact('profile'));
+        // 関連付け
+        $holidays = Holiday::all();
+        $frequencies = Frequency::all();
+        $consoles = Console::all();
+        $genres = Genre::all();
+
+        // 数字の間に,をいれて配列にする
+        $hol_arr = explode(',', $profile->holiday_id);
+        // dd($hol_arr);
+        $con_arr = explode(',', $profile->console_id);
+        // dd($con_arr);
+        $gen_arr = explode(',', $profile->genre_id);
+
+        return view('user.profile.profile_edit', compact('profile', 'holidays','frequencies', 'consoles', 'genres', 'hol_arr', 'con_arr', 'gen_arr'));
 
         // return view('user.profile.profile_edit', ['profile_form => $profile']);
     }
@@ -155,25 +169,6 @@ class ProfileController extends Controller
     public function index(Request $request) {
 
         $profiles = Profile::all();
-        // $profiles = Profile::where()->get();
-
-        // if(isset($_POST['holiday_ids']) && is_array($_POST['holiday_ids'])) {
-        //     $holiday_ids = array(
-        //         1=>'平日',
-        //         2=>'土日',
-        //         3=>'祝日',
-        //     );
-        //     $holiday_ids = implode(',', $_POST['holiday_ids']);
-
-        // }
-
-
-
-        // $frequency = array(
-        //     1=>'気合いの毎日',
-        //     2=>'休日にがっつり',
-        //     3=>'マイペースに週1~2',
-        // );
 
         return view('user.profile.profile', compact('profiles'));
     }

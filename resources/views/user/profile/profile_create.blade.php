@@ -51,6 +51,9 @@
           <div class="mb-3">
             <label for="name" class="form-label">ニックネーム</label>
             <input type="text" class="form-control prof-1 prof-2" name="name" value="{{ old('name') }}" placeholder="例:ぬまたまん">
+            @if ($errors->has('name'))
+              <span class="error">{{$errors->first('name')}}</span>
+            @endif
           </div>
         </div>
 
@@ -131,17 +134,26 @@
         <div class="form-group row">
           <div class="mb-3">
             <label class="form-label">休日</label><br>
+            {{-- foreach($配列名 as $要素名)~endforeach→配列を繰り返す制御構文 --}}
             @foreach($holidays as $holiday)
               <div class="form-check form-check-inline">
+                {{-- is_array→値が配列ならtrue、holidaysが配列ならtrue --}}
+                {{-- in_array(探したい値,対象の値,戻り値)→配列に値があるか調べる、$holiday->idがoholidaysの配列の中にあるかどうか調べる --}}
                 <input class="form-check-input" type="checkbox" name="holiday[]" value="{{ $holiday->id }}"
                 {{ is_array(old("holidays")) && in_array($holiday->id, old("holidays"), true)? ' checked' : '' }} >
                 <label class="form-check-label">{{ $holiday->name }}</label>
               </div>
             @endforeach
 
+            {{-- ヴァリデーションエラー --}}
+            {{-- if(条件式)~endif→条件分岐の制御構文 --}}
             @if ($errors->has('holiday'))
               <span class="error">{{$errors->first('holiday')}}</span>
             @endif
+            {{-- @error('holiday')
+              <div class="error">{{ $message }}</div>
+            @enderror --}}
+
           </div>
         </div>
 
@@ -163,9 +175,6 @@
             </div>
             @endforeach --}}
 
-            @if ($errors->has('checkbox'))
-              <span class="error">{{$errors->first('checkbox')}}</span>
-            @endif
           </div>
         </div>
 
@@ -176,7 +185,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="consoles[]" value="{{ $console->id }}"
                 {{ is_array(old("consoles")) && in_array($console->id, old("consoles"), true)? ' checked' : '' }} >
-                <label class="form-check-label" for="console01">{{ $console->name }}</label>
+                <label class="form-check-label">{{ $console->name }}</label>
               </div>
             @endforeach
           </div>
@@ -189,7 +198,7 @@
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" name="genres[]" value="{{ $genre->id }}"
                 {{ is_array(old("genres")) && in_array($genre->id, old("genres"), true)? ' checked' : '' }} >
-                <label class="form-check-label" for="genre01">{{ $genre->name }}</label>
+                <label class="form-check-label">{{ $genre->name }}</label>
               </div>
             @endforeach
           </div>
