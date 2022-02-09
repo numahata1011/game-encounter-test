@@ -63,10 +63,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 
 });
 
+Route::get('/', 'User\CommunityController@index')->name('community');
 
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function() {
     // コミュニティ
-    Route::get('/', 'User\CommunityController@index')->name('community');
+    // Route::get('/', 'User\CommunityController@index')->name('community');
     Route::get('/community/genre', 'User\CommunityController@communitygenre')->name('communitygenre');
     Route::get('/community/genre/list', 'User\CommunityController@communitylist')->name('communitylist');
     Route::get('/community/genre/list/detail', 'User\CommunityController@communitydetail')->name('communitydetail');

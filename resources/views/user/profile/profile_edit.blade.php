@@ -14,13 +14,27 @@
             @endforeach
           </ul>
         @endif
+        <br>
 
         <div class="form-group row">
-          <div class="mb-3">
-
-          </div>
-
+            <label class="col-md-2" for="image">画像</label>
+            <div class="col-md-10">
+                <input type="file" class="form-control-file" name="image">
+                <div class="form-text text-info">
+                    @if (Auth::user()->profile->image_path)
+                      <img width="100px" src="{{ asset('storage/image/' . Auth::user()->profile->image_path) }}">
+                    @else
+                      <img width="100px" src="{{ asset('storage/image/noimage.png') }}">
+                    @endif
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
+                    </label>
+                </div>
+            </div>
         </div>
+
         <div class="form-group row">
           <div class="mb-3">
             <label for="name" class="form-label">ニックネーム</label>

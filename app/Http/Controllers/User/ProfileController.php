@@ -31,10 +31,16 @@ class ProfileController extends Controller
         // Varidationを行う
         $this->validate($request, Profile::$rules);
 
+        $rules = [
+            'name.*'  => 'nullable',
+        ];
+
+        $validated = $request->validate($rules);
+
         $profile = new Profile;
         $form = $request->all();
 
-        // フォームから画像が送信されてきたら、保存して、$news->image_path に画像のパスを保存する
+        // フォームから画像が送信されてきたら、保存して、$profile->image_path に画像のパスを保存する
         if (isset($form['image'])) {
             $path = $request->file('image')->store('public/image');
             $profile->image_path = basename($path);
@@ -47,48 +53,52 @@ class ProfileController extends Controller
         // フォームから送信されてきたimageを削除する
         unset($form['image']);
 
-        // 休日を保存
-        $holiday_str = '';
-        if ( isset($form['holiday']) ) {
-            $holidays = $form['holiday'];
-            // $holiday_str='';
-            foreach ($holidays as $value) {
-                # code...
-                $holiday_str .= $value . ',';
-            }
-            unset($form['holiday']);
-        } else {
-            $profile->holiday  = null;
-        }
 
-        // ゲーム機種を保存
-        $console_str = '';
-        if ( isset($form['consoles']) ) {
-            $consoles=$form['consoles'];
-            // $console_str='';
-            foreach ($consoles as $value) {
-                # code...
-                $console_str.= $value . ',';
-            }
-            unset($form['consoles']);
-        } else {
-            $profile->console = null;
-        }
+        $profile->holiday_id = $this->getParam($form, 'holidays');
+        $profile->console_id = $this->getParam($form, 'consoles');
+        $profile->genre_id = $this->getParam($form, 'genres');
 
-        // ゲームジャンルを保存
-        $genre_str = '';
-        if ( isset($form['genres']) ) {
-            $genres=$form['genres'];
-            // $genre_str='';
-            foreach ($genres as $value) {
-                # code...
-                $genre_str.= $value . ',';
-            }
-            unset($form['genres']);
-        } else {
-            $profile->genre = null;
-        }
+        // // 休日を保存
+        // $holiday_str = '';
+        // if ( isset($form['holiday']) ) {
+        //     $holidays = $form['holiday'];
+        //     // $holiday_str='';
+        //     foreach ($holidays as $value) {
+        //         # code...
+        //         $holiday_str .= $value . ',';
+        //     }
+        //     unset($form['holiday']);
+        // } else {
+        //     $profile->holiday  = null;
+        // }
 
+        // // ゲーム機種を保存
+        // $console_str = '';
+        // if ( isset($form['consoles']) ) {
+        //     $consoles=$form['consoles'];
+        //     // $console_str='';
+        //     foreach ($consoles as $value) {
+        //         # code...
+        //         $console_str.= $value . ',';
+        //     }
+        //     unset($form['consoles']);
+        // } else {
+        //     $profile->console = null;
+        // }
+
+        // // ゲームジャンルを保存
+        // $genre_str = '';
+        // if ( isset($form['genres']) ) {
+        //     $genres=$form['genres'];
+        //     // $genre_str='';
+        //     foreach ($genres as $value) {
+        //         # code...
+        //         $genre_str.= $value . ',';
+        //     }
+        //     unset($form['genres']);
+        // } else {
+        //     $profile->genre = null;
+        // }
 
         // dd($form);
 
@@ -96,9 +106,9 @@ class ProfileController extends Controller
         $profile->fill($form);
         // dd($profile->toArray());
         $profile->user_id = Auth::id();
-        $profile->holiday_id = $holiday_str;
-        $profile->console_id = $console_str;
-        $profile->genre_id = $genre_str;
+        // $profile->holiday_id = $holiday_str;
+        // $profile->console_id = $console_str;
+        // $profile->genre_id = $genre_str;
         // dd($profile->toArray());
 
         $profile->save();
@@ -108,12 +118,6 @@ class ProfileController extends Controller
     }
 
     public function edit(Request $request) {
-
-        // // Modelからデータを取得する
-        // $profiles = Profile::find($request->id);
-        // if (empty($profiles)) {
-        //     abort(404);
-        // }
 
         // プロフィールデータ取得
         $profile = Auth::user()->profile;
@@ -138,30 +142,39 @@ class ProfileController extends Controller
 
     public function update(Request $request) {
 
+        // Validation
         $this->validate($request, Profile::$rules);
 
-        $profile = Profile::find($request->id);
+        // Profile からデータを取得
+        $profile = Auth::user()->profile;
 
-        $profile_form = $request->all();
+        // 送信されてきたフォームデータを格納する
+        $form = $request->all();
         if ($request->remove == 'true') {
-            $profile_form['image_path'] = null;
+            $form['image_path'] = null;
         } elseif ($request->file('image')) {
             $path = $request->file('image')->store('public/image');
-            $profile_form['image_path'] = basename($path);
+            $form['image_path'] = basename($path);
         } else {
-            $profile_form['image_path'] = $profile->image_path;
+            $form['image_path'] = $profile->image_path;
         }
 
-        unset($profile_form['image']);
-        unset($profile_form['remove']);
-        unset($profile_form['_token']);
+        unset($form['image']);
+        unset($form['remove']);
+        unset($form['_token']);
 
-        $profile->fill($profile_form)->save();
+        // // 該当するデータを上書きして保存する
+        // $profile->fill($profile_form)->save();
 
-        $profile_history = new ProfileHistory();
-        $profile_history->profile_id = $profile->id;
-        $profile_history->edited_at = Carbon::now();
-        $profile_history->save();
+        $profile->holiday_id = $this->getParam($form, 'holidays');
+        $profile->console_id = $this->getParam($form, 'consoles');
+        $profile->genre_id = $this->getParam($form, 'genres');
+
+        // データベースに保存する
+        $profile->fill($form);
+        $profile->user_id = Auth::id();
+
+        $profile->save();
 
         return redirect('profile');
     }
@@ -171,6 +184,39 @@ class ProfileController extends Controller
         $profiles = Profile::all();
 
         return view('user.profile.profile', compact('profiles'));
+    }
+
+    // private function getHoliday(&$form) {
+    //     // 休日を保存
+    //     $holiday_str = '';
+    //     if ( isset($form['holiday']) ) {
+    //         $holidays = $form['holiday'];
+    //         // $holiday_str='';
+    //         foreach ($holidays as $value) {
+    //             # code...
+    //             $holiday_str .= $value . ',';
+    //         }
+    //         unset($form['holiday']);
+    //         return $holiday_str;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
+    private function getParam(&$form, $paramName) {
+        $str = '';
+        if ( isset($form[$paramName]) ) {
+            $params = $form[$paramName];
+            // $holiday_str='';
+            foreach ($params as $value) {
+                # code...
+                $str .= $value . ',';
+            }
+            unset($form[$paramName]);
+            return $str;
+        } else {
+            return null;
+        }
     }
 
 }

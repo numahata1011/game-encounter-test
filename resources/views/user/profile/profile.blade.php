@@ -18,8 +18,16 @@
 
         <div class="form-group row">
           <div class="mb-3">
+            <div class="form-text text-info">
+              @if (Auth::user()->profile->image_path)
+                <img width="100px" src="{{ asset('storage/image/' . Auth::user()->profile->image_path) }}">
+              @else
+                <img width="100px" src="{{ asset('storage/image/noimage.png') }}">
+              @endif
+            </div>
           </div>
         </div>
+
 
         <div class="form-group row">
           <div class="mb-3">

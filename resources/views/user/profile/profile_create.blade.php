@@ -17,43 +17,33 @@
 
         <div class="form-group row">
           <div class="mb-3">
-            {{-- <label for="formFile" class="form-label">画像</label>
-            <input class="form-control" type="file" id="formFile"> --}}
-
-            <div class="col-md-10">
-              <input type="file" class="form-control-file" name="image">
-              <span class="avatar-form image-picker">
-                <input type="file" name="avatar" class="d-none" accept="image/png,image/jpeg,image/gif" id="avatar" />
-                <label for="avatar" class="d-inline-block">
-                    <img src="/images/avatar-default.svg" class="rounded-circle" style="object-fit: cover; width: 200px; height: 200px;">
-                </label>
-              </span>
-
-              {{-- <button data-test="profile-summary-main-photo-button" class="css-1at3n10">
-                <div class="lazy-img-wrap__Rbmmg css-1jsm5da" style="width: 128px; height: 128px;">
-                  <span class="css-1jsm5da lazy-img-placeholder__UuJb5"></span>
-                  <img class="lazy-img__lbCiP css-1jsm5da lazy entered loaded" data-src="https://prod-pairs-jp-icon-cdn.pairs.lv/icon/8a9870937a38576e4c9e6069c20d2cf74dac3641?height=280&amp;impolicy=pairs280x280&amp;imwidth=280&amp;v=1&amp;width=280" alt="あなたのプロフィール写真" data-ll-status="loaded" src="https://prod-pairs-jp-icon-cdn.pairs.lv/icon/8a9870937a38576e4c9e6069c20d2cf74dac3641?height=280&amp;impolicy=pairs280x280&amp;imwidth=280&amp;v=1&amp;width=280" style="width: 128px; height: 128px; display: block;">
-                </div>
-                <div class="css-ylxssm"></div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="css-1k11wvq">
-                  <title></title>
-                  <path d="M13.5585 3C14.4193 3 15.1836 3.55086 15.4558 4.36754L16 6H18C19.6569 6 21 7.34315 21 9V17C21 18.6569 19.6569 20 18 20H6C4.34315 20 3 18.6569 3 17V9C3 7.34315 4.34315 6 6 6H8L8.54415 4.36754C8.81638 3.55086 9.58066 3 10.4415 3H13.5585ZM12 8.5C9.51472 8.5 7.5 10.5147 7.5 13C7.5 15.4853 9.51472 17.5 12 17.5C14.4853 17.5 16.5 15.4853 16.5 13C16.5 10.5147 14.4853 8.5 12 8.5ZM18.5 7.5C17.9477 7.5 17.5 7.94772 17.5 8.5C17.5 9.05228 17.9477 9.5 18.5 9.5C19.0523 9.5 19.5 9.05228 19.5 8.5C19.5 7.94772 19.0523 7.5 18.5 7.5Z">
-                  </path>
-                </svg>
-              </button> --}}
-
+            <div class="form-group row">
+            <label class="col-md-2" for="image">画像</label>
+            <div class="col-md-10"><br>
+                <input type="file" class="form-control-file" name="image">
+                {{-- <div class="form-text text-info">
+                  @if ( old('image') == null)
+                    <img width="100px" src="{{ asset('storage/image/noimage.png') }}">
+                  @else
+                    <img width="100px" src="{{ asset('storage/image/' . old('image')) }}">
+                  @endif
+                </div> --}}
 
             </div>
-          </div>
-
         </div>
+          </div>
+        </div>
+
         <div class="form-group row">
           <div class="mb-3">
             <label for="name" class="form-label">ニックネーム</label>
-            <input type="text" class="form-control prof-1 prof-2" name="name" value="{{ old('name') }}" placeholder="例:ぬまたまん">
-            @if ($errors->has('name'))
+            <input type="text" class="form-control is-invalid prof-1 prof-2" id="validationServer03" name="name" value="{{ old('name') }}" placeholder="例:ぬまたまん" required>
+            {{-- @if ($errors->has('name'))
               <span class="error">{{$errors->first('name')}}</span>
-            @endif
+            @endif --}}
+            <div class="invalid-feedback">
+              @error('name') <span class="error">{{ $message }}</span> @enderror
+            </div>
           </div>
         </div>
 

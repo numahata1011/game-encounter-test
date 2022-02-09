@@ -17,8 +17,6 @@ class Profile extends Model
         // 'console' => 'required',
         'frequency_id' => 'required',
         // 'game_code' => 'required',
-        // 'residence' => 'required',
-        // 'birthplace' => 'required',
         'chat_flag' => 'required',
         // 'introduction' => 'required',
     );
